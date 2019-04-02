@@ -84,4 +84,13 @@ class CircleToSquareCircleView(ctx : Context) : View(ctx) {
         }
         return true
     }
+
+    companion object {
+
+        fun create(activity : Activity) : CircleToSquareCircleView {
+            val view : CircleToSquareCircleView = CircleToSquareCircleView(activity)
+            activity.setContentView(view)
+            return view 
+        }
+    }
 }
