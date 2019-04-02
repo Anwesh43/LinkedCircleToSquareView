@@ -200,6 +200,28 @@ class CircleToSquareCircleView(ctx : Context) : View(ctx) {
         }
     }
 
+    data class Renderer(var view : CircleToSquareCircleView) {
+
+        private val animator : Animator = Animator(view)
+        private val ctsc : CircleToSquareCircle = CircleToSquareCircle(0)
+
+        fun render(canvas : Canvas, paint : Paint) {
+            canvas.drawColor(backColor)
+            ctsc.draw(canvas, paint)
+            animator.animate {
+                ctsc.update {i, scl ->
+                    animator.stop()
+                }
+            }
+        }
+
+        fun handleTap() {
+            ctsc.startUpdating {
+                animator.start()
+            }
+        }
+    }
+
     companion object {
 
         fun create(activity : Activity) : CircleToSquareCircleView {
