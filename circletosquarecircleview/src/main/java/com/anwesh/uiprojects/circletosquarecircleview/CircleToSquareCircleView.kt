@@ -43,13 +43,13 @@ fun Canvas.drawHalfSquare(w : Float, h : Float, paint : Paint) {
 fun Canvas.drawHalfSquareCircle(sc : Float, size : Float, paint : Paint) {
     val h : Float = (size / 2) * sc
     drawSemiCircle(h, size / 2, paint)
-    drawHalfSquare(h, size / 2, paint)
+    drawHalfSquare(size, h, paint)
 }
 
 fun Canvas.drawCTSCNode(i : Int, scale : Float, paint : Paint) {
     val w : Float = width.toFloat()
     val h : Float = height.toFloat()
-    val gap : Float = w / (nodes + 1)
+    val gap : Float = h / (nodes + 1)
     val size : Float = gap / sizeFactor
     val sc1 : Float = scale.divideScale(0, 2)
     val sc2 : Float = scale.divideScale(1, 2)
@@ -62,6 +62,9 @@ fun Canvas.drawCTSCNode(i : Int, scale : Float, paint : Paint) {
     for (j in 0..(rects - 1)) {
         save()
         scale(1f, 1f - 2 * j)
+        paint.style = Paint.Style.FILL
+        drawHalfSquareCircle(sc1.divideScale(j, rects), size, paint)
+        paint.style = Paint.Style.STROKE
         drawHalfSquareCircle(sc1.divideScale(j, rects), size, paint)
         restore()
     }
